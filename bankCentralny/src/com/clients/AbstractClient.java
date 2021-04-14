@@ -6,17 +6,18 @@ import java.util.List;
 public abstract class AbstractClient {
     private String name;
     private String surname;
+    private String pesel;
     protected List<BankAccount> clientBankAccounts = new ArrayList<>();
-    private double summaryMoney = 0;
 
     /** Constructor of abstract client
      *
      * @param name Client name
      * @param surname Client surname
      */
-    public AbstractClient(String name, String surname) {
+    public AbstractClient(String name, String surname, String pesel) {
         this.name = name;
         this.surname = surname;
+        this.pesel = pesel;
     }
 
     /** Get name and surname of client
@@ -31,6 +32,7 @@ public abstract class AbstractClient {
      *
      */
     public void summaryMoney() {
+        double summaryMoney = 0;
         for (BankAccount bankAcc : clientBankAccounts
              ) {
             summaryMoney += bankAcc.getTotalDeposit();

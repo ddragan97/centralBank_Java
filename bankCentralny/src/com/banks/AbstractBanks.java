@@ -1,7 +1,6 @@
 package com.banks;
 
 import com.clients.BankAccount;
-import com.clients.Client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +76,16 @@ public abstract class AbstractBanks {
             bankAccount.borrowCash(amount);
         }
         else
-            System.out.println("Podano błędne konto!");
+            System.out.println("Podano bledne konto!");
     }
 
+    /** Get back borrowed money from specified bank account
+     *
+     * @param bankAccount Bank account to pay off the loan
+     * @param amount Cash value
+     */
+    public void getBackBorrowedMoney(BankAccount bankAccount, double amount) {
+        this.borrowedMoney -= amount;
+        this.currentCapital += amount;
+    }
 }

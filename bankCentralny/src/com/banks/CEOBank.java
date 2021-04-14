@@ -12,7 +12,7 @@ public class CEOBank {
         this.guaranteeFeeAmount = guaranteeFeeAmount;
     }
 
-    /**
+    /** Get cash value of guarantee fund
      *
      * @return Return amount of collected cash
      */
@@ -26,8 +26,12 @@ public class CEOBank {
      * @param amount How much money send
      */
     public void addMoneyToBank(Bank bank, double amount) {
-        bank.currentCapital += amount;
-        guaranteeFundAmount -= amount;
+        if(guaranteeFundAmount - amount > 0) {
+            bank.currentCapital += amount;
+            guaranteeFundAmount -= amount;
+        }
+        else
+            System.out.println("Brak pieniedzy");
     }
 
     /** Put cash to CEO Bank

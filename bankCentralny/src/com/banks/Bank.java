@@ -1,6 +1,5 @@
 package com.banks;
 
-import com.clients.Client;
 
 public class Bank extends AbstractBanks {
 

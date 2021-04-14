@@ -5,44 +5,48 @@ import com.banks.CEOBank;
 import com.clients.BankAccount;
 import com.clients.Client;
 
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        Bank b1 = new Bank("PKO", 100000);
-        System.out.println("Nazwa banku: "+b1.getBankName());
-        System.out.println("Aktualny kapital: "+b1.getCurrentCapital());
-        b1.showInformations();
-
-        Client c1 = new Client("Jan", "Kowalski");
-        System.out.println("Klient: "+c1.getNameAndSurname());
-
-        BankAccount bankAccount1 = new BankAccount(c1,b1);
-        bankAccount1.showBankAccountDeposit();
-        BankAccount bankAccount2 = new BankAccount(c1,b1);
-
-
-//        b1.borrowMoney(bankAccount1, 125);
-//        b1.borrowMoney(bankAccount2, 250);
-        System.out.println("Aktualny kapital: "+b1.getCurrentCapital());
-
-        bankAccount1.showBankAccountDeposit();
-
         CEOBank ceoBank = new CEOBank();
         ceoBank.setGuaranteeFeeAmount(10000);
-        ceoBank.addMoneyToBank(b1,15000);
-        ceoBank.putToGuaranteeFund(b1);
-        System.out.println("Fundusz gwarancyjny posiada: "+ceoBank.getGuaranteeFundAmount());
 
-        b1.showInformations();
+        Bank pko = new Bank("PKO", 500000);
+        Bank santander = new Bank("Santander", 1000000);
+        Bank pocztowy = new Bank("Bank Pocztowy", 750000);
 
-        ceoBank.setGuaranteeFeeAmount(25000);
-        ceoBank.putToGuaranteeFund(b1);
-        System.out.println("Fundusz gwarancyjny posiada: "+ceoBank.getGuaranteeFundAmount());
+        Client client1 = new Client("Adam", "Nowak", "11111111111");
+        Client client2 = new Client("Jan", "Kowalski", "22222222222");
 
-        b1.showInformations();
+        BankAccount bankAccount1 = new BankAccount(client1, pko);
+        BankAccount bankAccount2 = new BankAccount(client1, santander);
+        BankAccount bankAccount3 = new BankAccount(client2, pocztowy);
 
-        c1.summaryMoney();
+        ceoBank.putToGuaranteeFund(pko);
+        ceoBank.putToGuaranteeFund(santander);
+        ceoBank.putToGuaranteeFund(pocztowy);
+        ceoBank.addMoneyToBank(pko, 5000);
+        System.out.println("CEO Bank posiada fundusz w kwocie: " +ceoBank.getGuaranteeFundAmount());
 
+        System.out.println("Pierwszy klient to: " +client1.getNameAndSurname());
+        System.out.println("Pierwszy bank to: " +pko.getBankName());
+        System.out.println("Bank PKO ma kapital: " +pko.getCurrentCapital());
+
+        bankAccount1.selfDepositCash(12000);
+        bankAccount2.selfDepositCash(5000);
+        bankAccount3.selfDepositCash(10000);
+        bankAccount3.selfPayoutCash(2500);
+
+        pocztowy.borrowMoney(bankAccount3, 2000);
+
+        bankAccount3.payOffTheLoan(1500);
+        bankAccount3.showBankAccountDeposit();
+
+        pko.showInformations();
+        client1.summaryMoney();
+        client2.summaryMoney();
     }
 }
